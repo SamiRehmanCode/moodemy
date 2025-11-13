@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MoodyMe Admin Dashboard
+
+A professional admin dashboard for managing the MoodyMe mobile application. Built with Next.js 15, TypeScript, Prisma, and Tailwind CSS.
+
+## Features
+
+### 🎨 Beautiful UI/UX
+- Modern, clean interface inspired by professional dashboards
+- Fully responsive design (mobile, tablet, desktop)
+- Dark mode support with smooth transitions
+- Custom color scheme easily configurable via CSS variables
+
+### 🔐 Authentication System
+- User registration (signup)
+- Secure login with JWT tokens
+- Password reset via email with one-time tokens
+- Role-based access control (USER/ADMIN)
+
+### 👥 User Management
+- View all registered users
+- Search and filter users
+- Activate/deactivate user accounts
+- Edit user details
+- Delete users
+- Pagination support
+
+### 📄 Content Management
+- Manage About Us, Help & Support, and Privacy Policy pages
+- Rich text content editing
+- Toggle content visibility
+- Dynamic content updates
+
+### 🎯 Banner Management
+- Create promotional banners for the mobile app
+- Upload banner images
+- Set banner order and links
+- Enable/disable banners dynamically
+
+### 📊 Dashboard Analytics
+- Total users count
+- Active/inactive users
+- Banner statistics
+- Recent user registrations
+- Content page count
+
+### 🌓 Dark/Light Mode
+- System preference detection
+- Manual toggle
+- Persistent theme preference
+- Smooth color transitions
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ installed
+- PostgreSQL database (or MySQL/SQLite)
+- Resend account for email (optional, for password reset)
+
+### Installation
+
+1. **Install dependencies:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Setup environment variables:**
+```bash
+cp .env.example .env
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Edit `.env` and configure:
+- `DATABASE_URL`: Your database connection string
+- `JWT_SECRET`: A secure random string for JWT signing
+- `RESEND_API_KEY`: Your Resend API key (for emails)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Initialize database:**
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-## Learn More
+4. **Run development server:**
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. **Open your browser:**
+```
+http://localhost:3000/admin
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Color Customization
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All colors are defined as CSS variables in `app/globals.css`. You can easily customize the theme by updating the `oklch` values.
+
+## API Documentation
+
+Complete API documentation is available in [`API_DOCUMENTATION.md`](./API_DOCUMENTATION.md).
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+Built with ❤️ for MoodyMe
