@@ -307,7 +307,7 @@ export default function BannersPage() {
           <DialogHeader>
             <DialogTitle>Delete Banner</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{deletingBanner?.title}"? This action cannot be undone.
+              Are you sure you want to delete &quot;{deletingBanner?.title}&quot;? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

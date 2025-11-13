@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
 
-    const where: any = { isActive: true };
+    const where: Record<string, unknown> = { isActive: true };
     
     if (type && ['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY'].includes(type)) {
       where.type = type;

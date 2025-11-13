@@ -291,7 +291,7 @@ export default function ContentPage() {
           <DialogHeader>
             <DialogTitle>Delete Content</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete "{deletingContent?.title}"? This action cannot be undone.
+              Are you sure you want to delete &quot;{deletingContent?.title}&quot;? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
