@@ -2,15 +2,19 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
-  LayoutDashboard, 
-  Users, 
-  FileText, 
-  Image, 
+import {
+  LayoutDashboard,
+  Users,
+  FileText,
+  Image,
   LogOut,
   Menu,
   Moon,
-  Sun
+  Sun,
+  Info,
+  LifeBuoy,
+  ShieldCheck,
+  Settings
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -21,7 +25,11 @@ const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Users', href: '/admin/users', icon: Users },
   { name: 'Content', href: '/admin/content', icon: FileText },
-  { name: 'Banners', href: '/admin/banners', icon: Image },
+  { name: 'About Us', href: '/admin/about', icon: Info },
+  { name: 'Help & Support', href: '/admin/support', icon: LifeBuoy },
+  { name: 'Privacy policy', href: '/admin/privacy', icon: ShieldCheck },
+  { name: 'Settings', href: '/admin/settings', icon: Settings },
+  // { name: 'Banners', href: '/admin/banners', icon: Image },
 ];
 
 export function AdminSidebar() {
@@ -51,13 +59,11 @@ export function AdminSidebar() {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center gap-2 p-6 border-b border-sidebar-border">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <div className="flex gap-0.5">
-                <div className="w-1 h-4 bg-white rounded-full"></div>
-                <div className="w-1 h-6 bg-white rounded-full"></div>
-                <div className="w-1 h-5 bg-white rounded-full"></div>
-              </div>
-            </div>
+            <img
+              src="/Moody Me Logo.png"
+              alt="Moody Me Logo"
+              className="w-10 h-10 object-contain rounded-lg"
+            />
             <div>
               <h1 className="text-lg font-bold text-sidebar-foreground">MoodyMe</h1>
               <p className="text-xs text-sidebar-foreground/60">Admin Dashboard</p>

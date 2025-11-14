@@ -85,22 +85,22 @@ export default function AdminDashboard() {
       color: 'text-orange-500',
       bg: 'bg-orange-50 dark:bg-orange-950/30',
     },
-    {
-      title: 'Active Banners',
-      value: stats.activeBanners,
-      icon: Image,
-      description: `${stats.activeBanners} of ${stats.totalBanners} banners`,
-      color: 'text-purple-500',
-      bg: 'bg-purple-50 dark:bg-purple-950/30',
-    },
-    {
-      title: 'Content Pages',
-      value: stats.contentCount,
-      icon: FileText,
-      description: 'Total content items',
-      color: 'text-pink-500',
-      bg: 'bg-pink-50 dark:bg-pink-950/30',
-    },
+    // {
+    //   title: 'Active Banners',
+    //   value: stats.activeBanners,
+    //   icon: Image,
+    //   description: `${stats.activeBanners} of ${stats.totalBanners} banners`,
+    //   color: 'text-purple-500',
+    //   bg: 'bg-purple-50 dark:bg-purple-950/30',
+    // },
+    // {
+    //   title: 'Content Pages',
+    //   value: stats.contentCount,
+    //   icon: FileText,
+    //   description: 'Total content items',
+    //   color: 'text-pink-500',
+    //   bg: 'bg-pink-50 dark:bg-pink-950/30',
+    // },
   ];
 
   if (loading) {
