@@ -25,10 +25,10 @@ const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Users', href: '/admin/users', icon: Users },
   { name: 'Content', href: '/admin/content', icon: FileText },
-  { name: 'About Us', href: '/admin/about', icon: Info },
-  { name: 'Help & Support', href: '/admin/support', icon: LifeBuoy },
-  { name: 'Privacy policy', href: '/admin/privacy', icon: ShieldCheck },
-  { name: 'Settings', href: '/admin/settings', icon: Settings },
+  { name: 'About Us', href: '/admin/', icon: Info },
+  { name: 'Help & Support', href: '/admin/', icon: LifeBuoy },
+  { name: 'Privacy policy', href: '/admin/', icon: ShieldCheck },
+  { name: 'Settings', href: '/admin/', icon: Settings },
   // { name: 'Banners', href: '/admin/banners', icon: Image },
 ];
 
