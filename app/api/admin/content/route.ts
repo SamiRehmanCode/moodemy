@@ -4,9 +4,12 @@ import { verifyToken } from '@/lib/auth';
 import { contentSchema } from '@/lib/validations';
 
 // GET /api/admin/content - Get all content (admin only)
+import { ContentType, Prisma } from '@prisma/client'; // 👈 ADD THESE IMPORTS
+
+// GET /api/admin/content - Get all content (admin only)
 export async function GET(request: NextRequest) {
   try {
-    // Verify admin token
+    // ... (Token verification logic) ...
     const authHeader = request.headers.get('authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -22,10 +25,13 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
 
-    const where: { type?: string } = {};
+    // 👇 1. Use the correct Prisma type: Prisma.ContentWhereInput
+    const where: Prisma.ContentWhereInput = {}; 
     
-    if (type && ['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY', 'HOME_SCREEN', 'SPLASH_SCREEN', 'SIGNUP_MESSAGE', 'LOGIN_MESSAGE'].includes(type)) {
-      where.type = type;
+    // 2. Check if the type parameter is a valid key in the ContentType enum
+    if (type && type in ContentType) {
+      // 👇 3. Assign the actual ContentType ENUM VALUE
+      where.type = ContentType[type as keyof typeof ContentType];
     }
 
     const contents = await prisma.content.findMany({

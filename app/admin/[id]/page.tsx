@@ -61,7 +61,6 @@ export default function ContentPage() {
 
   useEffect(() => {
     fetchContents();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [typeFromURL]);
 
   return (

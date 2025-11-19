@@ -1,12 +1,16 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 const FROM_EMAIL = process.env.FROM_EMAIL || 'noreply@yourdomain.com';
 
 
 export async function sendPasswordResetOtpEmail(email: string, otp: string) {
   try {
+    if (!resend) {
+      console.warn('Resend API key not configured. Skipping email send.');
+      return { success: false, message: 'Email service not configured' };
+    }
     await resend.emails.send({
       from: FROM_EMAIL,
       to: email,
