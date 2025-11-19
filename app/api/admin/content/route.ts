@@ -9,7 +9,7 @@ import { ContentType, Prisma } from '@prisma/client'; // 👈 ADD THESE IMPORTS
 // GET /api/admin/content - Get all content (admin only)
 export async function GET(request: NextRequest) {
   try {
-    // ... (Token verification logic) ...
+    // ... (Token verification logic) ..;;.
     const authHeader = request.headers.get('authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
