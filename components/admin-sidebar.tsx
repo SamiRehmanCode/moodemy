@@ -15,7 +15,11 @@ import {
   LifeBuoy,
   ShieldCheck,
   Settings,
-  ChevronDown
+  ChevronDown,
+  Home,
+  Sparkles,
+  UserPlus,
+  LogIn
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from './ui/button';
@@ -25,8 +29,16 @@ import { useState } from 'react';
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Users', href: '/admin/users', icon: Users },
-  { name: 'Content', href: '/admin/content', icon: FileText },
-
+  {
+    name: 'Content',
+    icon: FileText,
+    children: [
+      { name: 'Home Screen', href: '/admin/content/home-screen', icon: Home },
+      { name: 'Splash Screen', href: '/admin/content/splash-screen', icon: Sparkles },
+      { name: 'Signup Message', href: '/admin/content/signup-message', icon: UserPlus },
+      { name: 'Login Message', href: '/admin/content/login-message', icon: LogIn },
+    ],
+  },
   {
     name: 'Settings',
     icon: Settings,

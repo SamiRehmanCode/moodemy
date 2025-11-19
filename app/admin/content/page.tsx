@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Plus, Edit, Trash2, Activity, FileText } from 'lucide-react';
 
-type ContentType = 'ABOUT_US' | 'HELP_SUPPORT' | 'PRIVACY_POLICY';
+type ContentType = 'ABOUT_US' | 'HELP_SUPPORT' | 'PRIVACY_POLICY' | 'HOME_SCREEN' | 'SPLASH_SCREEN' | 'SIGNUP_MESSAGE' | 'LOGIN_MESSAGE';
 
 interface Content {
   id: string;
@@ -127,6 +127,10 @@ export default function ContentPage() {
     ABOUT_US: 'About Us',
     HELP_SUPPORT: 'Help & Support',
     PRIVACY_POLICY: 'Privacy Policy',
+    HOME_SCREEN: 'Home Screen',
+    SPLASH_SCREEN: 'Splash Screen',
+    SIGNUP_MESSAGE: 'Signup Message',
+    LOGIN_MESSAGE: 'Login Message',
   };
 
   return (
@@ -243,6 +247,10 @@ export default function ContentPage() {
                 <option value="ABOUT_US">About Us</option>
                 <option value="HELP_SUPPORT">Help & Support</option>
                 <option value="PRIVACY_POLICY">Privacy Policy</option>
+                <option value="HOME_SCREEN">Home Screen</option>
+                <option value="SPLASH_SCREEN">Splash Screen</option>
+                <option value="SIGNUP_MESSAGE">Signup Message</option>
+                <option value="LOGIN_MESSAGE">Login Message</option>
               </select>
             </div>
             <div>

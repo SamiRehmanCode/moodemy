@@ -22,10 +22,10 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type');
 
-    const where: { type?: 'ABOUT_US' | 'HELP_SUPPORT' | 'PRIVACY_POLICY' } = {};
+    const where: { type?: string } = {};
     
-    if (type && ['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY'].includes(type)) {
-      where.type = type as 'ABOUT_US' | 'HELP_SUPPORT' | 'PRIVACY_POLICY';
+    if (type && ['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY', 'HOME_SCREEN', 'SPLASH_SCREEN', 'SIGNUP_MESSAGE', 'LOGIN_MESSAGE'].includes(type)) {
+      where.type = type;
     }
 
     const contents = await prisma.content.findMany({

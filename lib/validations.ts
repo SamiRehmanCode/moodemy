@@ -22,7 +22,7 @@ export const resetPasswordSchema = z.object({
 });
 
 export const contentSchema = z.object({
-  type: z.enum(['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY']),
+  type: z.enum(['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY', 'HOME_SCREEN', 'SPLASH_SCREEN', 'SIGNUP_MESSAGE', 'LOGIN_MESSAGE']),
   title: z.string().min(1, 'Title is required'),
   content: z.string().min(1, 'Content is required'),
   isActive: z.boolean().optional(),

@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
 
     const where: Record<string, unknown> = { isActive: true };
     
-    if (type && ['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY'].includes(type)) {
+    if (type && ['ABOUT_US', 'HELP_SUPPORT', 'PRIVACY_POLICY', 'HOME_SCREEN', 'SPLASH_SCREEN', 'SIGNUP_MESSAGE', 'LOGIN_MESSAGE'].includes(type)) {
       where.type = type;
     }
 
