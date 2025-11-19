@@ -39,12 +39,7 @@ const dummyContents = [
     content: 'Thank you for joining MoodyMe! We\'re excited to help you track and understand your mood patterns. Let\'s get started by setting up your profile and logging your first mood entry. You\'re just a few steps away from gaining valuable insights into your emotional well-being.',
     isActive: true,
   },
-  {
-    type: 'LOGIN_MESSAGE',
-    title: 'Login Welcome Message',
-    content: 'Welcome back to MoodyMe! We\'re glad to see you again. Continue tracking your mood, explore your insights, and stay connected with your emotional well-being journey. Let\'s see how you\'re feeling today!',
-    isActive: true,
-  },
+
 ];
 
 async function main() {
