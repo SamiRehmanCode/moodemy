@@ -1,15 +1,35 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { AdminLayout } from '@/components/admin-layout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Search, UserPlus, Edit, Trash2, Activity } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { AdminLayout } from "@/components/admin-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Search, UserPlus, Edit, Trash2, Activity } from "lucide-react";
 
 interface User {
   id: string;
@@ -22,10 +42,38 @@ interface User {
 }
 
 export default function UsersPage() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([
+    {
+      id: "1",
+      email: "john.doe@example.com",
+      firstName: "John",
+      lastName: "Doe",
+      isActive: true,
+      role: "User",
+      createdAt: "2023-01-15T00:00:00Z",
+    },
+    {
+      id: "2",
+      email: "jane.smith@example.com",
+      firstName: "Jane",
+      lastName: "Smith",
+      isActive: false,
+      role: "Admin",
+      createdAt: "2023-02-20T00:00:00Z",
+    },
+    {
+      id: "3",
+      email: "bob.johnson@example.com",
+      firstName: "Bob",
+      lastName: "Johnson",
+      isActive: true,
+      role: "User",
+      createdAt: "2023-03-10T00:00:00Z",
+    },
+  ]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [filterActive, setFilterActive] = useState<string>('');
+  const [search, setSearch] = useState("");
+  const [filterActive, setFilterActive] = useState<string>("");
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -38,14 +86,14 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('admin_token');
+      const token = localStorage.getItem("admin_token");
       const params = new URLSearchParams();
-      if (search) params.append('search', search);
-      if (filterActive) params.append('isActive', filterActive);
+      if (search) params.append("search", search);
+      if (filterActive) params.append("isActive", filterActive);
 
       const response = await fetch(`/api/admin/users?${params}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -54,7 +102,7 @@ export default function UsersPage() {
         setUsers(data.users);
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     } finally {
       setLoading(false);
     }
@@ -64,12 +112,12 @@ export default function UsersPage() {
     if (!editingUser) return;
 
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = localStorage.getItem("admin_token");
       const response = await fetch(`/api/admin/users/${editingUser.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           firstName: editingUser.firstName,
@@ -84,7 +132,7 @@ export default function UsersPage() {
         fetchUsers();
       }
     } catch (error) {
-      console.error('Error updating user:', error);
+      console.error("Error updating user:", error);
     }
   };
 
@@ -92,11 +140,11 @@ export default function UsersPage() {
     if (!deletingUser) return;
 
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = localStorage.getItem("admin_token");
       const response = await fetch(`/api/admin/users/${deletingUser.id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -106,7 +154,7 @@ export default function UsersPage() {
         fetchUsers();
       }
     } catch (error) {
-      console.error('Error deleting user:', error);
+      console.error("Error deleting user:", error);
     }
   };
 
@@ -161,7 +209,9 @@ export default function UsersPage() {
                 <Activity className="h-6 w-6 animate-spin text-primary" />
               </div>
             ) : users.length === 0 ? (
-              <p className="text-center text-muted-foreground py-8">No users found</p>
+              <p className="text-center text-muted-foreground py-8">
+                No users found
+              </p>
             ) : (
               <Table>
                 <TableHeader>
@@ -190,14 +240,16 @@ export default function UsersPage() {
                         <span
                           className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                             user.isActive
-                              ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                              : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                              ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                              : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
                           }`}
                         >
-                          {user.isActive ? 'Active' : 'Inactive'}
+                          {user.isActive ? "Active" : "Inactive"}
                         </span>
                       </TableCell>
-                      <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        {new Date(user.createdAt).toLocaleDateString()}
+                      </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button
@@ -236,7 +288,9 @@ export default function UsersPage() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit User</DialogTitle>
-            <DialogDescription>Update user information and status</DialogDescription>
+            <DialogDescription>
+              Update user information and status
+            </DialogDescription>
           </DialogHeader>
           {editingUser && (
             <div className="space-y-4">
@@ -245,7 +299,12 @@ export default function UsersPage() {
                 <Input
                   id="firstName"
                   value={editingUser.firstName}
-                  onChange={(e) => setEditingUser({ ...editingUser, firstName: e.target.value })}
+                  onChange={(e) =>
+                    setEditingUser({
+                      ...editingUser,
+                      firstName: e.target.value,
+                    })
+                  }
                 />
               </div>
               <div>
@@ -253,7 +312,9 @@ export default function UsersPage() {
                 <Input
                   id="lastName"
                   value={editingUser.lastName}
-                  onChange={(e) => setEditingUser({ ...editingUser, lastName: e.target.value })}
+                  onChange={(e) =>
+                    setEditingUser({ ...editingUser, lastName: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -265,7 +326,9 @@ export default function UsersPage() {
                 <Switch
                   id="isActive"
                   checked={editingUser.isActive}
-                  onCheckedChange={(checked) => setEditingUser({ ...editingUser, isActive: checked })}
+                  onCheckedChange={(checked) =>
+                    setEditingUser({ ...editingUser, isActive: checked })
+                  }
                 />
               </div>
             </div>
@@ -285,11 +348,15 @@ export default function UsersPage() {
           <DialogHeader>
             <DialogTitle>Delete User</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete {deletingUser?.firstName} {deletingUser?.lastName}? This action cannot be undone.
+              Are you sure you want to delete {deletingUser?.firstName}{" "}
+              {deletingUser?.lastName}? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowDeleteDialog(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setShowDeleteDialog(false)}
+            >
               Cancel
             </Button>
             <Button variant="destructive" onClick={handleDeleteUser}>

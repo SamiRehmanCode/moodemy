@@ -1,19 +1,25 @@
-'use client';
+"use client";
 
-import { AdminLayout } from '@/components/admin-layout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
+import { AdminLayout } from "@/components/admin-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 
 export default function SplashScreenPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(
-    'Understand Your Mood, Improve Your Life. Welcome to MoodyMe - Your Personal Mood Tracking Companion. Track daily moods, discover patterns, and gain insights into your emotional well-being.'
+    "Understand Your Mood, Improve Your Life. Welcome to MoodyMe - Your Personal Mood Tracking Companion. Track daily moods, discover patterns, and gain insights into your emotional well-being."
   );
 
   const handleSave = () => {
-    console.log('Saving splash screen content:', content);
+    console.log("Saving splash screen content:", content);
     setIsEditing(false);
   };
 
@@ -24,10 +30,12 @@ export default function SplashScreenPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Splash Screen</h1>
-            <p className="text-muted-foreground">Manage the splash screen welcome message</p>
+            <p className="text-muted-foreground">
+              Manage the splash screen welcome message
+            </p>
           </div>
           <Button onClick={() => setIsEditing(!isEditing)}>
-            {isEditing ? 'Cancel' : 'Edit'}
+            {isEditing ? "Cancel" : "Edit"}
           </Button>
         </div>
 
@@ -35,7 +43,9 @@ export default function SplashScreenPage() {
         <Card>
           <CardHeader>
             <CardTitle>Splash Screen Message</CardTitle>
-            <CardDescription>This message is displayed when the app first loads</CardDescription>
+            <CardDescription>
+              This message is displayed when the app first loads
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {isEditing ? (
@@ -55,9 +65,13 @@ export default function SplashScreenPage() {
               </>
             ) : (
               <div>
-                <p className="text-muted-foreground leading-relaxed mb-4">{content}</p>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  {content}
+                </p>
                 <div className="bg-muted p-4 rounded-lg border-2 border-dashed">
-                  <p className="text-xs font-medium text-muted-foreground mb-2">Splash Preview:</p>
+                  <p className="text-xs font-medium text-muted-foreground mb-2">
+                    Splash Preview:
+                  </p>
                   <div className="bg-background p-6 rounded text-center">
                     <div className="text-2xl font-bold mb-2">🎯</div>
                     <p className="text-sm font-semibold">{content}</p>
@@ -69,7 +83,7 @@ export default function SplashScreenPage() {
         </Card>
 
         {/* Info Cards */}
-        <div className="grid gap-4 md:grid-cols-2">
+        {/* <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium">Display Duration</CardTitle>
@@ -89,7 +103,7 @@ export default function SplashScreenPage() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </div> */}
       </div>
     </AdminLayout>
   );

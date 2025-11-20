@@ -1,19 +1,25 @@
-'use client';
+"use client";
 
-import { AdminLayout } from '@/components/admin-layout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
+import { AdminLayout } from "@/components/admin-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 
 export default function LoginMessagePage() {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(
-    'Welcome back to MoodyMe! We\'re glad to see you again. Continue tracking your mood, explore your insights, and stay connected with your emotional well-being journey. Let\'s see how you\'re feeling today!'
+    "Welcome back to MoodyMe! We're glad to see you again. Continue tracking your mood, explore your insights, and stay connected with your emotional well-being journey. Let's see how you're feeling today!"
   );
 
   const handleSave = () => {
-    console.log('Saving login message:', content);
+    console.log("Saving login message:", content);
     setIsEditing(false);
   };
 
@@ -24,10 +30,12 @@ export default function LoginMessagePage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Login Message</h1>
-            <p className="text-muted-foreground">Manage the welcome back message for returning users</p>
+            <p className="text-muted-foreground">
+              Manage the welcome back message for returning users
+            </p>
           </div>
           <Button onClick={() => setIsEditing(!isEditing)}>
-            {isEditing ? 'Cancel' : 'Edit'}
+            {isEditing ? "Cancel" : "Edit"}
           </Button>
         </div>
 
@@ -35,7 +43,9 @@ export default function LoginMessagePage() {
         <Card>
           <CardHeader>
             <CardTitle>Returning User Welcome Message</CardTitle>
-            <CardDescription>This message is displayed after user login</CardDescription>
+            <CardDescription>
+              This message is displayed after user login
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {isEditing ? (
@@ -55,11 +65,17 @@ export default function LoginMessagePage() {
               </>
             ) : (
               <div>
-                <p className="text-muted-foreground leading-relaxed mb-4">{content}</p>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  {content}
+                </p>
                 <div className="bg-muted p-4 rounded-lg border-2 border-dashed">
-                  <p className="text-xs font-medium text-muted-foreground mb-2">Message Preview:</p>
+                  <p className="text-xs font-medium text-muted-foreground mb-2">
+                    Message Preview:
+                  </p>
                   <div className="bg-background p-6 rounded">
-                    <p className="text-sm font-semibold text-center mb-3">🎉 Welcome Back!</p>
+                    <p className="text-sm font-semibold text-center mb-3">
+                      🎉 Welcome Back!
+                    </p>
                     <p className="text-sm">{content}</p>
                   </div>
                 </div>
@@ -67,38 +83,6 @@ export default function LoginMessagePage() {
             )}
           </CardContent>
         </Card>
-
-        {/* Info Cards */}
-        <div className="grid gap-4 md:grid-cols-3">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Trigger</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-semibold">After Login</div>
-              <p className="text-xs text-muted-foreground">Shown on home screen</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Display Type</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-lg font-semibold">Toast/Banner</div>
-              <p className="text-xs text-muted-foreground">Non-blocking</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Status</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
-                Active
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </AdminLayout>
   );

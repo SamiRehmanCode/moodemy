@@ -1,17 +1,37 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { AdminLayout } from '@/components/admin-layout';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Plus, Edit, Trash2, Activity, FileText } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { AdminLayout } from "@/components/admin-layout";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Plus, Edit, Trash2, Activity, FileText } from "lucide-react";
 
-type ContentType = 'ABOUT_US' | 'HELP_SUPPORT' | 'PRIVACY_POLICY' | 'HOME_SCREEN' | 'SPLASH_SCREEN' | 'SIGNUP_MESSAGE' | 'LOGIN_MESSAGE';
+type ContentType =
+  | "ABOUT_US"
+  | "HELP_SUPPORT"
+  | "PRIVACY_POLICY"
+  | "HOME_SCREEN"
+  | "SPLASH_SCREEN"
+  | "SIGNUP_MESSAGE"
+  | "LOGIN_MESSAGE";
 
 interface Content {
   id: string;
@@ -31,9 +51,9 @@ export default function ContentPage() {
   const [editingContent, setEditingContent] = useState<Content | null>(null);
   const [deletingContent, setDeletingContent] = useState<Content | null>(null);
   const [formData, setFormData] = useState({
-    type: 'ABOUT_US' as ContentType,
-    title: '',
-    content: '',
+    type: "ABOUT_US" as ContentType,
+    title: "",
+    content: "",
     isActive: true,
   });
 
@@ -44,10 +64,10 @@ export default function ContentPage() {
   const fetchContents = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem('admin_token');
-      const response = await fetch('/api/admin/content', {
+      const token = localStorage.getItem("admin_token");
+      const response = await fetch("/api/admin/content", {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -56,7 +76,7 @@ export default function ContentPage() {
         setContents(data.contents);
       }
     } catch (error) {
-      console.error('Error fetching contents:', error);
+      console.error("Error fetching contents:", error);
     } finally {
       setLoading(false);
     }
@@ -64,17 +84,17 @@ export default function ContentPage() {
 
   const handleSubmit = async () => {
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = localStorage.getItem("admin_token");
       const url = editingContent
         ? `/api/admin/content/${editingContent.id}`
-        : '/api/admin/content';
-      const method = editingContent ? 'PUT' : 'POST';
+        : "/api/admin/content";
+      const method = editingContent ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -82,11 +102,16 @@ export default function ContentPage() {
       if (response.ok) {
         setShowDialog(false);
         setEditingContent(null);
-        setFormData({ type: 'ABOUT_US', title: '', content: '', isActive: true });
+        setFormData({
+          type: "ABOUT_US",
+          title: "",
+          content: "",
+          isActive: true,
+        });
         fetchContents();
       }
     } catch (error) {
-      console.error('Error saving content:', error);
+      console.error("Error saving content:", error);
     }
   };
 
@@ -105,11 +130,11 @@ export default function ContentPage() {
     if (!deletingContent) return;
 
     try {
-      const token = localStorage.getItem('admin_token');
+      const token = localStorage.getItem("admin_token");
       const response = await fetch(`/api/admin/content/${deletingContent.id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -119,18 +144,18 @@ export default function ContentPage() {
         fetchContents();
       }
     } catch (error) {
-      console.error('Error deleting content:', error);
+      console.error("Error deleting content:", error);
     }
   };
 
   const contentTypeLabels: Record<ContentType, string> = {
-    ABOUT_US: 'About Us',
-    HELP_SUPPORT: 'Help & Support',
-    PRIVACY_POLICY: 'Privacy Policy',
-    HOME_SCREEN: 'Home Screen',
-    SPLASH_SCREEN: 'Splash Screen',
-    SIGNUP_MESSAGE: 'Signup Message',
-    LOGIN_MESSAGE: 'Login Message',
+    ABOUT_US: "About Us",
+    HELP_SUPPORT: "Help & Support",
+    PRIVACY_POLICY: "Privacy Policy",
+    HOME_SCREEN: "Home Screen",
+    SPLASH_SCREEN: "Splash Screen",
+    SIGNUP_MESSAGE: "Signup Message",
+    LOGIN_MESSAGE: "Login Message",
   };
 
   return (
@@ -139,14 +164,23 @@ export default function ContentPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Content Management</h1>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Content Management
+            </h1>
             <p className="text-muted-foreground">Manage app content pages</p>
           </div>
-          <Button onClick={() => {
-            setEditingContent(null);
-            setFormData({ type: 'ABOUT_US', title: '', content: '', isActive: true });
-            setShowDialog(true);
-          }}>
+          <Button
+            onClick={() => {
+              setEditingContent(null);
+              setFormData({
+                type: "ABOUT_US",
+                title: "",
+                content: "",
+                isActive: true,
+              });
+              setShowDialog(true);
+            }}
+          >
             <Plus className="h-4 w-4 mr-2" />
             Add Content
           </Button>
@@ -183,11 +217,11 @@ export default function ContentPage() {
                     <span
                       className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
                         content.isActive
-                          ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                          : 'bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400'
+                          ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                          : "bg-gray-100 text-gray-700 dark:bg-gray-900/30 dark:text-gray-400"
                       }`}
                     >
-                      {content.isActive ? 'Active' : 'Inactive'}
+                      {content.isActive ? "Active" : "Inactive"}
                     </span>
                   </div>
                 </CardHeader>
@@ -196,7 +230,9 @@ export default function ContentPage() {
                     {content.content}
                   </p>
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                    <span>Updated {new Date(content.updatedAt).toLocaleDateString()}</span>
+                    <span>
+                      Updated {new Date(content.updatedAt).toLocaleDateString()}
+                    </span>
                   </div>
                   <div className="flex gap-2">
                     <Button
@@ -230,9 +266,13 @@ export default function ContentPage() {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editingContent ? 'Edit Content' : 'Add Content'}</DialogTitle>
+            <DialogTitle>
+              {editingContent ? "Edit Content" : "Add Content"}
+            </DialogTitle>
             <DialogDescription>
-              {editingContent ? 'Update the content information' : 'Create a new content page'}
+              {editingContent
+                ? "Update the content information"
+                : "Create a new content page"}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
@@ -241,7 +281,12 @@ export default function ContentPage() {
               <select
                 id="type"
                 value={formData.type}
-                onChange={(e) => setFormData({ ...formData, type: e.target.value as ContentType })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    type: e.target.value as ContentType,
+                  })
+                }
                 className="w-full px-3 py-2 border rounded-md bg-background mt-1"
               >
                 <option value="ABOUT_US">About Us</option>
@@ -258,7 +303,9 @@ export default function ContentPage() {
               <Input
                 id="title"
                 value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
                 placeholder="Enter title"
               />
             </div>
@@ -267,7 +314,9 @@ export default function ContentPage() {
               <Textarea
                 id="content"
                 value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, content: e.target.value })
+                }
                 placeholder="Enter content"
                 rows={10}
                 className="resize-none"
@@ -278,7 +327,9 @@ export default function ContentPage() {
               <Switch
                 id="isActive"
                 checked={formData.isActive}
-                onCheckedChange={(checked) => setFormData({ ...formData, isActive: checked })}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, isActive: checked })
+                }
               />
             </div>
           </div>
@@ -287,14 +338,14 @@ export default function ContentPage() {
               Cancel
             </Button>
             <Button onClick={handleSubmit}>
-              {editingContent ? 'Update' : 'Create'}
+              {editingContent ? "Update" : "Create"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       {/* Delete Dialog */}
-      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+      {/* <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Delete Content</DialogTitle>
@@ -311,7 +362,7 @@ export default function ContentPage() {
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </AdminLayout>
   );
 }
