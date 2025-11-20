@@ -29,7 +29,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Search, UserPlus, Edit, Trash2, Activity } from "lucide-react";
+import { Search, UserX, UserCheck, Activity } from "lucide-react";
 
 interface User {
   id: string;
@@ -74,8 +74,6 @@ export default function UsersPage() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filterActive, setFilterActive] = useState<string>("");
-  const [editingUser, setEditingUser] = useState<User | null>(null);
-  const [showEditDialog, setShowEditDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deletingUser, setDeletingUser] = useState<User | null>(null);
 
@@ -108,44 +106,19 @@ export default function UsersPage() {
     }
   };
 
-  const handleUpdateUser = async () => {
-    if (!editingUser) return;
+  const handleSuspendUser = async () => {
+    if (!deletingUser) return;
 
     try {
       const token = localStorage.getItem("admin_token");
-      const response = await fetch(`/api/admin/users/${editingUser.id}`, {
+      // Toggle isActive state (suspend/reactivate)
+      const response = await fetch(`/api/admin/users/${deletingUser.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          firstName: editingUser.firstName,
-          lastName: editingUser.lastName,
-          isActive: editingUser.isActive,
-        }),
-      });
-
-      if (response.ok) {
-        setShowEditDialog(false);
-        setEditingUser(null);
-        fetchUsers();
-      }
-    } catch (error) {
-      console.error("Error updating user:", error);
-    }
-  };
-
-  const handleDeleteUser = async () => {
-    if (!deletingUser) return;
-
-    try {
-      const token = localStorage.getItem("admin_token");
-      const response = await fetch(`/api/admin/users/${deletingUser.id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        body: JSON.stringify({ isActive: !deletingUser.isActive }),
       });
 
       if (response.ok) {
@@ -154,7 +127,7 @@ export default function UsersPage() {
         fetchUsers();
       }
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error("Error updating user status:", error);
     }
   };
 
@@ -218,7 +191,6 @@ export default function UsersPage() {
                   <TableRow>
                     <TableHead>Name</TableHead>
                     <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Joined</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
@@ -231,11 +203,6 @@ export default function UsersPage() {
                         {user.firstName} {user.lastName}
                       </TableCell>
                       <TableCell>{user.email}</TableCell>
-                      <TableCell>
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
-                          {user.role}
-                        </span>
-                      </TableCell>
                       <TableCell>
                         <span
                           className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
@@ -256,21 +223,15 @@ export default function UsersPage() {
                             size="sm"
                             variant="ghost"
                             onClick={() => {
-                              setEditingUser(user);
-                              setShowEditDialog(true);
-                            }}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => {
                               setDeletingUser(user);
                               setShowDeleteDialog(true);
                             }}
                           >
-                            <Trash2 className="h-4 w-4 text-destructive" />
+                            {user.isActive ? (
+                              <UserX className="h-4 w-4 text-destructive" />
+                            ) : (
+                              <UserCheck className="h-4 w-4 text-green-600" />
+                            )}
                           </Button>
                         </div>
                       </TableCell>
@@ -283,73 +244,17 @@ export default function UsersPage() {
         </Card>
       </div>
 
-      {/* Edit Dialog */}
-      <Dialog open={showEditDialog} onOpenChange={setShowEditDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit User</DialogTitle>
-            <DialogDescription>
-              Update user information and status
-            </DialogDescription>
-          </DialogHeader>
-          {editingUser && (
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="firstName">First Name</Label>
-                <Input
-                  id="firstName"
-                  value={editingUser.firstName}
-                  onChange={(e) =>
-                    setEditingUser({
-                      ...editingUser,
-                      firstName: e.target.value,
-                    })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="lastName">Last Name</Label>
-                <Input
-                  id="lastName"
-                  value={editingUser.lastName}
-                  onChange={(e) =>
-                    setEditingUser({ ...editingUser, lastName: e.target.value })
-                  }
-                />
-              </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" value={editingUser.email} disabled />
-              </div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="isActive">Active Status</Label>
-                <Switch
-                  id="isActive"
-                  checked={editingUser.isActive}
-                  onCheckedChange={(checked) =>
-                    setEditingUser({ ...editingUser, isActive: checked })
-                  }
-                />
-              </div>
-            </div>
-          )}
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowEditDialog(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleUpdateUser}>Save Changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      {/* Delete Dialog */}
+      {/* Suspend/Reactivate Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete User</DialogTitle>
+            <DialogTitle>
+              {deletingUser?.isActive ? "Suspend User" : "Reactivate User"}
+            </DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete {deletingUser?.firstName}{" "}
-              {deletingUser?.lastName}? This action cannot be undone.
+              {deletingUser?.isActive
+                ? `Are you sure you want to suspend ${deletingUser?.firstName} ${deletingUser?.lastName}? Suspended users will no longer be able to sign in.`
+                : `Are you sure you want to reactivate ${deletingUser?.firstName} ${deletingUser?.lastName}? This will restore their access.`}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -359,8 +264,11 @@ export default function UsersPage() {
             >
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteUser}>
-              Delete
+            <Button
+              variant={deletingUser?.isActive ? "destructive" : "default"}
+              onClick={handleSuspendUser}
+            >
+              {deletingUser?.isActive ? "Suspend" : "Reactivate"}
             </Button>
           </DialogFooter>
         </DialogContent>
